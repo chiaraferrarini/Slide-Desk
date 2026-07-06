@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Presentazione di Tracciabilità Intelligente e Smart Farming di Mediterranei per i buyer internazionali della GDO.">
+<title>Tracciabilità Intelligente e Smart Farming — Mediterranei</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:               #1A1F1C;
+    --white:             #FFFFFF;
+    --green-primary:     #2D5C3E;
+    --green-light:       #EFF6F1;
+    --green-accent:      #3D8B6F;
+    --green-highlight:   #288C64; /* a beautiful mid-ground emerald teal for highlights */
+    --clay:              #2FA8A0;
+    --mustard:           #43BBAE;
+    --cream:             #FAFAF7;
+    --olive:             #8FB88A;
+    --olive-deep:        #2D5C3E;
+    --glass-bg:          rgba(255, 255, 255, 0.7);
+    --glass-border:      rgba(45, 92, 62, 0.08);
+    --card-bg:           #FAFBF9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { 
+    background: #0B130E; 
+    overflow: hidden; 
+    width: 100vw; 
+    height: 100vh;
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    font-weight: 300; 
+    color: var(--ink); 
+  }
+
+  /* Presentation Viewport Centering & Scaling */
+  .presentation-viewport {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .deck-container {
+    width: 1280px;
+    height: 720px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+    overflow: hidden;
+    background: var(--ink);
+    border-radius: 16px;
+    box-shadow: 0 25px 65px rgba(0, 0, 0, 0.65);
+    transition: transform 0.2s ease-out;
+  }
+
+  /* Slides Base */
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 1280px;
+    height: 720px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    transform: scale(0.96) translateY(12px);
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1) translateY(0);
+    z-index: 2;
+  }
+
+  /* SVGs blobs animations */
+  .map {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .map path {
+    transition: transform 12s ease-in-out;
+  }
+  
+  @keyframes float-blob-1 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-15px, 20px) scale(1.04); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  @keyframes float-blob-2 {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, -15px) scale(0.96); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+  
+  .map path:nth-of-type(1) {
+    animation: float-blob-1 25s ease-in-out infinite;
+  }
+  .map path:nth-of-type(2) {
+    animation: float-blob-2 30s ease-in-out infinite;
+  }
+
+  .pad { 
+    position: relative; 
+    z-index: 3; 
+    height: 100%; 
+    padding: 50px 65px; 
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Text & Elements entry animations */
+  .animate-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .slide.active .animate-fade {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+  .delay-4 { transition-delay: 0.4s; }
+  .delay-5 { transition-delay: 0.5s; }
+  .delay-6 { transition-delay: 0.6s; }
+
+  /* Data Flow Diagram */
+  .data-flow-diagram {
+    margin: 38px auto;
+    width: 100%;
+    max-width: 900px;
+    height: 70px;
+    align-self: center;
+  }
+  .data-flow-diagram svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .data-flow-diagram .flow-line {
+    animation: flow-dash 5s linear infinite;
+  }
+  @keyframes flow-dash {
+    from { stroke-dashoffset: 220; }
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* Shared Typography & Elements */
+  .eyebrow { 
+    font-family: 'IBM Plex Mono', monospace; 
+    font-size: 13px; 
+    letter-spacing: 0.16em; 
+    text-transform: uppercase; 
+  }
+  .id-text { 
+    font-family: 'IBM Plex Mono', monospace; 
+    font-size: 12px; 
+    letter-spacing: 0.05em; 
+    line-height: 1.5; 
+  }
+  .id-row { 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    border-bottom: 1px solid rgba(26, 31, 28, 0.08);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+  }
+  h1, h2 { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    font-weight: 800; 
+    line-height: 1.05; 
+    letter-spacing: -0.03em; 
+  }
+  h3, p { text-wrap: pretty; }
+  .pop { color: var(--green-highlight); }
+  .pop-clay { color: var(--green-highlight); }
+
+  /* Pulsing Dot Component */
+  .pulse-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--mustard);
+    border-radius: 50%;
+    position: relative;
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  .pulse-dot::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--mustard);
+    top: -8px;
+    left: -8px;
+    animation: pulse-ring 1.8s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+    opacity: 0;
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.3); opacity: 0.8; }
+    80%, 100% { transform: scale(1); opacity: 0; }
+  }
+
+  /* SLIDE 1 — Copertina (White & Green Layout) */
+ #s1 { 
+  background: linear-gradient(135deg, #FAFAF7 0%, #F4FAF7 100%);
+  overflow: hidden;
+  position: relative;
+}
+
+#s1 .bg-parallax {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 112%;
+  height: 112%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.25s cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  filter: grayscale(1) contrast(1.08) brightness(1.06);
+}
+
+#s1 .pad {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 56px 72px 52px 72px;
+  z-index: 5;
+  position: relative;
+  height: 100%;
+  max-width: 700px;
+}
+
+#s1 .id-row {
+  width: 100%;
+  padding-bottom: 18px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid rgba(26, 31, 28, 0.08);
+}
+
+#s1 .id-text {
+  color: rgba(26, 31, 28, 0.55);
+}
+
+#s1 h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  color: var(--ink);
+  margin-top: 38px;
+  max-width: 620px;
+}
+
+#s1 .sub {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.72;
+  color: rgba(26, 31, 28, 0.68);
+  max-width: 560px;
+  margin-top: 22px;
+}
+
+#s1 .bottom-row {
+  margin-top: auto;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: auto;
+  padding-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+#s1 .badge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  border: 1px solid rgba(26, 31, 28, 0.12);
+  padding: 8px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+  color: var(--green-primary);
+  background: var(--green-light);
+  font-weight: 500;
+}
+
+#s1 .holo-3d-island {
+  position: absolute;
+  right: 68px;
+  top: 52%;
+  transform: translateY(-50%) translateZ(40px);
+  width: 500px;
+  height: 500px;
+  object-fit: contain;
+  z-index: 4;
+  pointer-events: none;
+  filter: drop-shadow(0 25px 60px rgba(10, 82, 55, 0.08));
+  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.floating-3d-scene {
+  position: absolute;
+  right: 42px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  z-index: 4;
+  pointer-events: none;
+  perspective: 1600px;
+}
+
+.float-layer {
+  position: absolute;
+  z-index: 2;
+  animation: float-bob 7s ease-in-out infinite;
+}
+
+.float-tilt {
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-style: preserve-3d;
+  will-change: transform;
+  filter: drop-shadow(0 22px 38px rgba(39, 183, 176, 0.12));
+}
+
+@keyframes float-bob {
+  0%, 100% { transform: translateY(0) translateZ(0); }
+  50% { transform: translateY(-14px) translateZ(10px); }
+}
+
+#networkCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.34;
+}
+
+  /* Small ambient floating icon — Slides 2-6 (quiet, corner decoration) */
+  .mini-float-icon {
+    position: absolute;
+    top: 42px;
+    right: 55px;
+    z-index: 1;
+    opacity: 0.16;
+    pointer-events: none;
+    animation: float-bob 8s ease-in-out infinite;
+  }
+
+  /* Interactive Canvas Network overlay rules */
+  #networkCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.55;
+  }
+
+  /* SLIDE 2 — La Sfida */
+  #s2 { background: var(--green-light); }
+  #s2 .id-row { border-bottom: 1px solid rgba(26, 31, 28, 0.08); }
+  #s2 .id-text { color: rgba(14,27,21,0.5); }
+  #s2 .eyebrow { color: var(--green-primary); }
+  #s2 h2 { font-size: 44px; max-width: 800px; margin-top: 22px; color: var(--ink); }
+  #s2 .rows { 
+    margin-top: 65px; 
+    display: flex; 
+    gap: 30px; 
+    width: 100%; 
+    position: relative; 
+    z-index: 3; 
+    padding: 0 0 10px 0;
+  }
+  #s2 .row { 
+    flex: 1;
+    display: flex; 
+    flex-direction: column;
+    gap: 16px; 
+    padding: 24px; 
+    border: 1px solid rgba(14,27,21,0.08); 
+    align-items: flex-start; 
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.45);
+    height: auto;
+  }
+  #s2 .row:hover {
+    background: rgba(255, 255, 255, 0.75);
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(10, 82, 55, 0.04);
+    border-color: rgba(45, 92, 62, 0.35);
+  }
+  #s2 .row:last-child { border-bottom: none; }
+  #s2 .row .tag-box { 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: auto;
+  }
+  #s2 .row .tag { 
+    font-family: 'IBM Plex Mono', monospace; 
+    font-size: 11px; 
+    color: var(--green-primary); 
+    letter-spacing: 0.08em; 
+    font-weight: 600;
+  }
+  #s2 .row .icon-wrapper {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(47, 168, 160, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green-highlight);
+  }
+  #s2 .row h3 { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    font-size: 19px; 
+    font-weight: 700; 
+    color: var(--ink); 
+    width: auto; 
+    flex-shrink: initial; 
+  }
+  #s2 .row p { font-size: 14px; color: rgba(26,31,28,0.64); line-height: 1.54; }
+
+  #s2 .holo-3d-box {
+    position: absolute;
+    right: 80px;
+    top: 130px;
+    width: 260px;
+    height: 260px;
+    object-fit: contain;
+    z-index: 2;
+    pointer-events: none;
+    filter: drop-shadow(0 20px 40px rgba(10, 82, 55, 0.08));
+    animation: float-bob 7.5s ease-in-out infinite;
+  }
+
+  /* SLIDE 3 — Il Sistema */
+  #s3 { background: var(--white); }
+  #s3 .id-row { border-bottom: 1px solid rgba(26, 31, 28, 0.08); }
+  #s3 .id-text { color: rgba(26,31,28,0.5); }
+  #s3 .eyebrow { color: var(--green-primary); }
+  #s3 h2 { font-size: 44px; max-width: 660px; margin-top: 22px; color: var(--ink); }
+  #s3 .lede { font-size: 16px; max-width: 800px; margin-top: 14px; color: rgba(26,31,28,0.64); line-height: 1.64; }
+  
+  #s3 .steps { 
+    margin-top: auto; 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+    position: relative;
+    padding-top: 25px;
+  }
+  #s3 .steps::before {
+    content: '';
+    position: absolute;
+    top: 55px;
+    left: 40px;
+    right: 40px;
+    height: 1px;
+    border-top: 1px dashed rgba(75, 87, 51, 0.25);
+    z-index: 1;
+  }
+  #s3 .step { 
+    background: rgba(239, 246, 241, 0.45);
+    border: 1px solid rgba(45, 92, 62, 0.12);
+    border-radius: 14px;
+    padding: 24px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #s3 .step:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(24, 18, 13, 0.06);
+    border-color: rgba(45, 92, 62, 0.35);
+    background: rgba(255, 255, 255, 0.5);
+  }
+  #s3 .step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  #s3 .step .si { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    font-size: 32px; 
+    font-weight: 800; 
+    color: var(--clay); 
+    opacity: 0.85; 
+  }
+  #s3 .step .step-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(45, 92, 62, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--olive-deep);
+  }
+  #s3 .step-copy h3 { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    font-size: 20px; 
+    font-weight: 600; 
+    color: var(--ink); 
+    margin-bottom: 8px;
+  }
+  #s3 .step-copy p { 
+    font-size: 14.5px; 
+    color: rgba(26,31,28,0.64); 
+    line-height: 1.54; 
+  }
+
+  /* SLIDE 4 — Valore GDO */
+  #s4 { background: var(--green-light); }
+  #s4 .id-row { border-bottom: 1px solid rgba(26, 31, 28, 0.08); }
+  #s4 .id-text { color: rgba(26,31,28,0.5); }
+  #s4 .eyebrow { color: var(--green-primary); }
+  #s4 h2 { font-size: 44px; max-width: 660px; margin-top: 22px; color: var(--ink); }
+  #s4 .split { display: flex; gap: 50px; margin-top: auto; padding-bottom: 10px; }
+  #s4 .left { flex: 1.1; display: flex; flex-direction: column; justify-content: space-between; }
+  #s4 .left p { font-size: 16.5px; color: rgba(26,31,28,0.64); line-height: 1.68; max-width: 530px; }
+  
+  #s4 .stat-row { display: flex; gap: 24px; margin-top: 25px; }
+  #s4 .stat { 
+    flex: 1;
+    background: rgba(255, 255, 255, 0.55); 
+    border: 1px solid rgba(45, 92, 62, 0.12);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  #s4 .stat .v { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    font-size: 38px; 
+    font-weight: 800; 
+    color: var(--green-highlight); 
+    line-height: 1;
+  }
+  #s4 .stat .l { 
+    font-family: 'IBM Plex Mono', monospace; 
+    font-size: 10.5px; 
+    color: rgba(26,31,28,0.58); 
+    margin-top: 8px; 
+    line-height: 1.4; 
+    letter-spacing: 0.02em; 
+  }
+
+  /* ESG Calculator */
+  .esg-calculator {
+    margin-top: 18px;
+    background: rgba(45, 92, 62, 0.12);
+    border: 1px solid rgba(45, 92, 62, 0.3);
+    border-radius: 12px;
+    padding: 12px 18px;
+  }
+  .calc-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--olive-deep);
+    margin-bottom: 8px;
+  }
+  .calc-inputs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  #calcTons {
+    width: 80px;
+    padding: 4px 8px;
+    border: 1px solid rgba(24, 18, 13, 0.15);
+    border-radius: 6px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    background: white;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  #calcTons:focus {
+    border-color: var(--green-highlight);
+  }
+  .calc-unit {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: rgba(26, 31, 28, 0.6);
+  }
+  .calc-results {
+    display: flex;
+    gap: 25px;
+    border-top: 1px dashed rgba(26, 31, 28, 0.15);
+    padding-top: 8px;
+  }
+  .calc-metric {
+    display: flex;
+    flex-direction: column;
+  }
+  .calc-metric .m-val {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--green-highlight);
+    line-height: 1.1;
+  }
+  .calc-metric .m-lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px;
+    color: rgba(26, 31, 28, 0.5);
+    margin-top: 2px;
+  }
+  
+  #s4 .holo-3d-esg {
+    position: absolute;
+    left: 490px;
+    bottom: 25px;
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    z-index: 2;
+    pointer-events: none;
+    filter: drop-shadow(0 15px 30px rgba(10, 82, 55, 0.06));
+    animation: float-bob 8.5s ease-in-out infinite;
+  }
+  
+  /* Telemetry Dashboard Simulation */
+  #s4 .right { 
+    background: var(--ink); 
+    border-radius: 20px; 
+    padding: 24px 26px; 
+    flex: 0.9; 
+    display: flex; 
+    flex-direction: column;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(250, 250, 247, 0.06);
+  }
+  #s4 .right .eyebrow { color: rgba(250,250,247,0.45); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+  #s4 .label-line { 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 11px 0; 
+    border-bottom: 1px solid rgba(250,250,247,0.08); 
+    font-size: 14.5px; 
+  }
+  #s4 .label-line:last-child { border-bottom: none; }
+  #s4 .label-line span:first-child { color: rgba(250,250,247,0.58); }
+  #s4 .label-line span:last-child { 
+    font-family: 'IBM Plex Mono', monospace; 
+    color: var(--mustard); 
+    font-size: 12.5px; 
+    font-weight: 500;
+  }
+
+  /* Telemetry graph */
+  .telemetry-chart {
+    height: 60px;
+    margin: 12px 0 6px 0;
+    position: relative;
+    border-bottom: 1px dashed rgba(250, 250, 247, 0.15);
+  }
+  .telemetry-chart svg {
+    width: 100%;
+    height: 100%;
+  }
+  .telemetry-chart .sparkline {
+    fill: none;
+    stroke: var(--olive);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+  }
+  .slide.active .telemetry-chart .sparkline {
+    animation: draw-chart 3s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+  @keyframes draw-chart {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* SLIDE 5 — Perché con noi */
+  #s5 { background: var(--white); }
+  #s5 .id-row { border-bottom: 1px solid rgba(26, 31, 28, 0.08); }
+  #s5 .id-text { color: rgba(26,31,28,0.5); }
+  #s5 .eyebrow { color: var(--green-primary); }
+  #s5 h2 { font-size: 44px; max-width: 700px; margin-top: 22px; color: var(--ink); }
+  #s5 .pillars { display: flex; gap: 24px; margin-top: auto; padding-top: 10px; }
+  #s5 .pillar { 
+    flex: 1; 
+    padding: 20px; 
+    background: rgba(239, 246, 241, 0.45);
+    border: 1px solid rgba(45, 92, 62, 0.12);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #s5 .pillar:hover {
+    transform: translateY(-5px);
+    background: rgba(239, 246, 241, 0.75);
+    border-color: rgba(45, 92, 62, 0.35);
+    box-shadow: 0 15px 35px rgba(10, 82, 55, 0.05);
+  }
+  #s5 .pillar .n { 
+    font-family: 'IBM Plex Mono', monospace; 
+    font-size: 11px; 
+    color: var(--green-highlight); 
+    letter-spacing: 0.12em; 
+    font-weight: 600;
+  }
+  #s5 .pillar h3 { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    font-size: 19px; 
+    font-weight: 700; 
+    color: var(--ink); 
+    margin-top: 10px; 
+  }
+  #s5 .pillar p { 
+    font-size: 14.5px; 
+    color: rgba(26,31,28,0.64); 
+    margin-top: 8px; 
+    line-height: 1.56; 
+  }
+  #s5 .quote { 
+    margin-top: 24px; 
+    padding: 18px 24px; 
+    background: rgba(40, 140, 100, 0.05);
+    border-left: 3px solid var(--green-highlight);
+    border-radius: 0 10px 10px 0;
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    font-weight: 600; 
+    font-size: 17.5px; 
+    max-width: 1150px; 
+    line-height: 1.48; 
+    color: var(--green-primary); 
+  }
+  #s5 .quote span { 
+    display: block; 
+    margin-top: 8px; 
+    font-family: 'IBM Plex Mono', monospace; 
+    font-size: 12px; 
+    letter-spacing: 0.04em; 
+    color: rgba(26,31,28,0.52); 
+  }
+
+  #s5 .holo-3d-gear {
+    position: absolute;
+    right: 70px;
+    top: 60px;
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    z-index: 2;
+    pointer-events: none;
+    filter: drop-shadow(0 20px 40px rgba(10, 82, 55, 0.08));
+    animation: float-bob 9s ease-in-out infinite;
+  }
+
+  /* SLIDE 6 — CONCLUSIONE / CTA */
+  #s6 { background: var(--ink); }
+  #s6 .id-text { color: rgba(250,250,247,0.55); }
+  #s6 .eyebrow { color: var(--mustard); }
+  #s6 .pad { 
+  justify-content: space-between;
+  padding: 56px 78px 56px 78px;
+}
+
+#s6 h2 {
+  font-size: 58px;
+  max-width: 760px;
+  margin-top: 34px;
+  color: var(--cream);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+#s6 .lede {
+  font-size: 17px;
+  max-width: 560px;
+  margin-top: 18px;
+  color: rgba(250,250,247,0.68);
+  line-height: 1.7;
+}
+
+#s6 .bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: auto;
+  gap: 28px;
+}
+
+#s6 .cta-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+#s6 .cta {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  background: linear-gradient(135deg, var(--clay), #58d0c8);
+  padding: 15px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 14px 40px rgba(39, 183, 176, 0.28);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  display: inline-block;
+}
+
+#s6 .cta:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 18px 46px rgba(39, 183, 176, 0.38);
+}
+
+#s6 .contacts {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: rgba(250,250,247,0.58);
+  text-align: right;
+}
+  
+  /* Minimal Professional QR Code link (Reference Style 3 Layout) */
+  .minimal-qr-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: rgba(250, 248, 245, 0.65);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    transition: color 0.3s ease;
+  }
+  .minimal-qr-link:hover {
+    color: var(--mustard);
+  }
+  .minimal-qr-box {
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(250, 248, 245, 0.22);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    transition: all 0.3s ease;
+    color: rgba(250, 248, 245, 0.7);
+  }
+  .minimal-qr-link:hover .minimal-qr-box {
+    border-color: var(--mustard);
+    color: var(--mustard);
+    transform: scale(1.06);
+  }
+  .minimal-qr-text {
+    letter-spacing: 0.05em;
+  }
+  }
+  
+  #s6 .contacts { 
+    font-family: 'IBM Plex Mono', monospace; 
+    font-size: 13px; 
+    line-height: 1.8; 
+    color: rgba(250,250,247,0.5); 
+    text-align: right; 
+  }
+
+  /* Presentation Controls HUD */
+  .hud-controls {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(24, 18, 13, 0.75);
+    border: 1px solid rgba(250, 250, 247, 0.15);
+    border-radius: 40px;
+    padding: 8px 18px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 100;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .hud-controls.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 15px);
+  }
+
+  .hud-btn {
+    background: none;
+    border: none;
+    color: rgba(250, 250, 247, 0.7);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  .hud-btn:hover {
+    background: rgba(250, 250, 247, 0.1);
+    color: var(--cream);
+  }
+  
+  .hud-progress {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: rgba(250, 250, 247, 0.6);
+    letter-spacing: 0.05em;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .progress-bar-hud {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: var(--mustard);
+    width: 0%;
+    transition: width 0.4s ease;
+    z-index: 101;
+    border-radius: 0 0 0 16px;
+  }
+
+  /* Shortcut Alert Overlay */
+  .shortcut-tip {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(45, 92, 62, 0.95);
+    color: var(--ink);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    z-index: 200;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  @media print {
+    html, body { overflow: visible; height: auto; background: white; }
+    .presentation-viewport { display: block; height: auto; }
+    .deck-container { transform: none !important; width: auto; height: auto; box-shadow: none; border-radius: 0; }
+    .slide { position: relative; display: block !important; opacity: 1 !important; visibility: visible !important; transform: none !important; page-break-after: always; box-shadow: none; }
+    .hud-controls, .shortcut-tip, .progress-bar-hud { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="presentation-viewport">
+  
+  <!-- Presentation HUD Shortcut Help -->
+  <div class="shortcut-tip" id="shortcutTip">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    Naviga con ➔, ⬅ o Spazio. Esc/F per Schermo Intero.
+  </div>
+
+  <div class="deck-container">
+    
+    <!-- PROGRESS BAR IN DECK BOTTOM -->
+    <div class="progress-bar-hud" id="progressBar"></div>
+
+    <!-- SLIDE 1 — TITLE -->
+    <section class="slide active" id="s1">
+      <img class="bg-parallax" src="assets/abstract_field_bg.jpg" alt="Campo coltivato astratto in background">
+      <canvas id="networkCanvas"></canvas>
+      <svg class="map" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1280" height="720" fill="transparent"/>
+        <path d="M 820 -60 C 1040 -90, 1280 20, 1240 180 C 1210 310, 980 330, 860 220 C 760 130, 680 -20, 820 -60 Z" fill="var(--green-primary)" opacity="0.05"/>
+        <path d="M 1000 440 C 1180 400, 1340 500, 1290 630 C 1250 730, 1050 740, 940 640 C 840 555, 870 480, 1000 440 Z" fill="var(--green-accent)" opacity="0.04"/>
+        <path d="M -80 560 C 100 520, 230 620, 170 720 L -80 720 Z" fill="var(--olive)" opacity="0.04"/>
+        <g stroke="rgba(40, 140, 100, 0.12)" stroke-width="1" fill="none">
+          <line x1="920" y1="80" x2="1140" y2="190"/>
+          <line x1="1140" y1="190" x2="1240" y2="340"/>
+        </g>
+        <circle cx="920" cy="80" r="3" fill="var(--green-highlight)"/>
+        <circle cx="1140" cy="190" r="3" fill="var(--green-highlight)"/>
+        <circle cx="1240" cy="340" r="3" fill="var(--green-highlight)"/>
+      </svg>
+
+      <!-- FLOATING 3D SCENE — Grafiche organiche a foglia e tracciati leggeri con parallasse -->
+      <div class="floating-3d-scene" id="floatingScene" style="position: absolute; right: 0; top: 0; width: 650px; height: 100%; pointer-events: none; z-index: 2; overflow: hidden;">
+        <!-- Livello 1: Profilo foglia superiore destra -->
+        <div class="float-layer" style="position: absolute; right: -40px; top: 8%; width: 480px; height: 480px;" data-depth="0.4">
+          <div class="float-tilt">
+            <svg viewBox="0 0 200 200" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M40,110 C40,60 100,40 160,70 C160,120 100,140 40,110 Z M40,110 C80,90 120,80 160,70" stroke="var(--green-highlight)" stroke-width="0.6" stroke-opacity="0.08"/>
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Livello 2: Tracciati flessuosi e venature centrali -->
+        <div class="float-layer" style="position: absolute; right: 80px; top: 22%; width: 440px; height: 440px;" data-depth="0.95">
+          <div class="float-tilt">
+            <svg viewBox="0 0 200 200" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20,130 C50,80 120,70 190,100" stroke="var(--green-highlight)" stroke-width="0.75" stroke-opacity="0.07" stroke-linecap="round"/>
+              <path d="M90,92 C110,105 130,112 150,115" stroke="var(--green-highlight)" stroke-width="0.5" stroke-opacity="0.05" stroke-linecap="round"/>
+              <path d="M70,96 C80,82 95,75 110,70" stroke="var(--green-highlight)" stroke-width="0.5" stroke-opacity="0.05" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Livello 3: Foglia inferiore destra + reticolo digitale agrario (nodi connessi) -->
+        <div class="float-layer" style="position: absolute; right: 120px; top: 38%; width: 340px; height: 340px;" data-depth="1.5">
+          <div class="float-tilt">
+            <svg viewBox="0 0 100 100" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Outline foglia 2 -->
+              <path d="M80,70 C60,40 30,30 10,50 C10,80 50,90 80,70 Z M80,70 C55,60 30,55 10,50" stroke="var(--green-highlight)" stroke-width="0.25" stroke-opacity="0.08"/>
+              
+              <!-- Digital connections -->
+              <line x1="20" y1="35" x2="50" y2="15" stroke="var(--green-highlight)" stroke-width="0.4" stroke-opacity="0.1" stroke-dasharray="2,2"/>
+              <line x1="50" y1="15" x2="80" y2="40" stroke="var(--green-highlight)" stroke-width="0.4" stroke-opacity="0.1" stroke-dasharray="2,2"/>
+              <circle cx="20" cy="35" r="1.5" fill="var(--green-highlight)" fill-opacity="0.18"/>
+              <circle cx="50" cy="15" r="1.5" fill="var(--green-highlight)" fill-opacity="0.18"/>
+              <circle cx="80" cy="40" r="1.5" fill="var(--green-highlight)" fill-opacity="0.18"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="pad">
+        <div class="id-row">
+          <div class="id-text">
+            <a href="https://www.mediterranei.coop/" target="_blank" style="color:inherit; text-decoration:none; border-bottom:1px solid transparent; transition:border-bottom 0.25s;" onmouseover="this.style.borderBottom='1px solid var(--green-highlight)'" onmouseout="this.style.borderBottom='1px solid transparent'">MEDITERRANEI · Cooperativa Digitale</a>
+          </div>
+          <div class="id-text">
+            <a href="https://www.legacoop.coop/legacoop-agroalimentare-filiere-cooperative-sostenibili/" target="_blank" style="color:inherit; text-decoration:none; border-bottom:1px solid transparent; transition:border-bottom 0.25s;" onmouseover="this.style.borderBottom='1px solid var(--green-highlight)'" onmouseout="this.style.borderBottom='1px solid transparent'">LEGACOOP AGROALIMENTARE</a>
+          </div>
+        </div>
+        <h1 class="animate-fade delay-1">
+          Tracciabilità<br>Intelligente<br>e <span class="pop">Smart Farming</span>
+        </h1>
+        <p class="sub animate-fade delay-2">
+          Sensori IoT nei campi ed algoritmi di IA che ottimizzano i raccolti,<br>garantendo trasparenza totale sulla filiera cooperativa.
+        </p>
+        <div class="bottom-row animate-fade delay-3">
+          <div class="badge">PER BUYER GDO INTERNAZIONALI</div>
+        </div>
+      </div>
+    </section>
+    <!-- SLIDE 2 — LA SFIDA (TRASPARENZA) -->
+    <section class="slide" id="s2">
+      <svg class="map" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1280" height="720" fill="var(--green-light)"/>
+        <!-- Topographic Contour Lines -->
+        <g fill="none" stroke="rgba(45, 92, 62, 0.06)" stroke-width="1.2">
+          <!-- Top Right Contour System -->
+          <path d="M 1050,-100 C 1150,-60 1250,10 1280,120 C 1300,220 1200,280 1100,260 Z"/>
+          <path d="M 1060,-80 C 1140,-50 1220,10 1245,100 C 1260,180 1180,230 1100,215 Z"/>
+          
+          <!-- Bottom Left Contour System -->
+          <path d="M 100,580 C 180,605 220,680 200,760 C 180,840 80,855 0,790 C -80,725 -110,635 -90,555 Z"/>
+          <path d="M 80,600 C 140,620 170,670 160,730 C 150,790 70,800 10,750 C -50,700 -70,640 -60,580 Z"/>
+        </g>
+      </svg>
+
+      <div class="mini-float-icon" style="animation-delay:.2s;">
+        <svg width="46" height="46" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M45 6 L78 25 L78 65 L45 84 L12 65 L12 25 Z" fill="var(--ink)"/>
+          <circle cx="45" cy="45" r="9" fill="var(--green-highlight)"/>
+          <circle cx="45" cy="45" r="16" stroke="var(--green-highlight)" stroke-width="1.5" stroke-opacity="0.55" fill="none"/>
+        </svg>
+      </div>
+
+      <div class="pad">
+        <div class="id-row">
+          <div class="eyebrow">01 — La sfida</div>
+          <div class="id-text">02 / 06</div>
+        </div>
+        <h2 class="animate-fade delay-1">Il mercato chiede<br><span class="pop">trasparenza</span>.</h2>
+        <div class="rows">
+          <div class="row animate-fade delay-2">
+            <div class="tag-box">
+              <div class="icon-wrapper">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="tag">ORIGINE</div>
+            </div>
+            <h3>Provenienza verificabile</h3>
+            <p>Il consumatore finale vuole sapere dove, come e da chi è stato prodotto ciò che mette nel carrello. Non accetta più incertezze.</p>
+          </div>
+          <div class="row animate-fade delay-3">
+            <div class="tag-box">
+              <div class="icon-wrapper">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              </div>
+              <div class="tag">CONTINUITÀ</div>
+            </div>
+            <h3>Qualità costante su scala</h3>
+            <p>Variabilità del raccolto e filiere cooperative frammentate rendono storicamente difficile offrire standard uniformi tutto l'anno.</p>
+          </div>
+          <div class="row animate-fade delay-4">
+            <div class="tag-box">
+              <div class="icon-wrapper">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="tag">VANTAGGIO</div>
+            </div>
+            <h3>Differenziazione reale</h3>
+            <p>Un claim etico senza prove matematiche ha perso valore commerciale. Serve un racconto reale da portare sullo scaffale.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3 — IL SISTEMA (COME FUNZIONA) -->
+    <section class="slide" id="s3">
+      <svg class="map" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1280" height="720" fill="var(--white)"/>
+        <!-- Topographic Contour Lines (Green) -->
+        <g fill="none" stroke="rgba(45, 92, 62, 0.08)" stroke-width="1.2">
+          <!-- Top Right Contour System -->
+          <path d="M 1050,-100 C 1150,-60 1250,10 1280,120 C 1300,220 1200,280 1100,260 Z"/>
+          <path d="M 1060,-80 C 1140,-50 1220,10 1245,100 C 1260,180 1180,230 1100,215 Z"/>
+          <path d="M 1070,-60 C 1130,-40 1190,10 1210,80 C 1220,140 1160,180 1100,170 Z"/>
+          
+          <!-- Bottom Left Contour System -->
+          <path d="M 100,580 C 180,605 220,680 200,760 C 180,840 80,855 0,790 C -80,725 -110,635 -90,555 Z"/>
+          <path d="M 80,600 C 140,620 170,670 160,730 C 150,790 70,800 10,750 C -50,700 -70,640 -60,580 Z"/>
+        </g>
+      </svg>
+
+      <div class="mini-float-icon" style="animation-delay:.4s;">
+        <svg width="52" height="52" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M55 5 C85 20 100 50 85 80 C70 105 35 105 20 80 C5 50 25 20 55 5 Z" fill="var(--green-primary)"/>
+          <path d="M55 10 C55 40 55 70 55 100" stroke="var(--white)" stroke-width="1.5" stroke-opacity="0.3"/>
+        </svg>
+      </div>
+
+      <div class="pad">
+        <div class="id-row">
+          <div class="eyebrow">02 — Il sistema</div>
+          <div class="id-text">03 / 06</div>
+        </div>
+        <h2 class="animate-fade delay-1">Come funziona,<br>dal campo <span class="pop">a voi</span>.</h2>
+        <p class="lede animate-fade delay-2">La terra e il dato si connettono in tempo reale.<br>Un flusso continuo, certificato ed accessibile.</p>
+        
+        <!-- High-tech Data Flow SVG Visualizer -->
+        <div class="data-flow-diagram animate-fade delay-3">
+          <svg viewBox="0 0 800 60" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 120,30 L 680,30" stroke="rgba(110, 123, 85, 0.15)" stroke-width="1.5" stroke-dasharray="6,4"/>
+            <path class="flow-line" d="M 120,30 L 680,30" stroke="var(--green-highlight)" stroke-width="1.8" stroke-dasharray="40, 180" stroke-dashoffset="0"/>
+            
+            <g transform="translate(120, 30)">
+              <circle cx="0" cy="0" r="11" fill="var(--olive-deep)" stroke="var(--cream)" stroke-width="2"/>
+              <circle cx="0" cy="0" r="5" fill="var(--olive)"/>
+              <text x="0" y="-18" font-family="'IBM Plex Mono', monospace" font-size="8.5" fill="var(--olive-deep)" font-weight="600" text-anchor="middle" letter-spacing="0.05em">CAMPO IoT</text>
+            </g>
+            
+            <g transform="translate(400, 30)">
+              <circle cx="0" cy="0" r="11" fill="var(--green-primary)" stroke="var(--cream)" stroke-width="2"/>
+              <circle cx="0" cy="0" r="5" fill="var(--green-highlight)"/>
+              <text x="0" y="-18" font-family="'IBM Plex Mono', monospace" font-size="8.5" fill="var(--green-primary)" font-weight="600" text-anchor="middle" letter-spacing="0.05em">ELABORAZIONE IA</text>
+            </g>
+            
+            <g transform="translate(680, 30)">
+              <circle cx="0" cy="0" r="11" fill="var(--ink)" stroke="var(--cream)" stroke-width="2"/>
+              <circle cx="0" cy="0" r="5" fill="var(--mustard)"/>
+              <text x="0" y="-18" font-family="'IBM Plex Mono', monospace" font-size="8.5" fill="var(--ink)" font-weight="600" text-anchor="middle" letter-spacing="0.05em">REGISTRO GDO</text>
+            </g>
+          </svg>
+        </div>
+        
+        <div class="steps">
+          <div class="step animate-fade delay-4">
+            <div class="step-header">
+              <div class="si">01</div>
+              <div class="step-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-4M12 14a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49M7.76 7.76a6 6 0 0 0 0 8.49M20.48 3.52a12 12 0 0 1 0 16.96M3.52 3.52a12 12 0 0 0 0 16.96"/></svg>
+              </div>
+            </div>
+            <div class="step-copy">
+              <h3>Sensori IoT in campo</h3>
+              <p>Umidità del suolo, conducibilità, temperatura, irraggiamento solare. Monitoriamo lo stato vitale della pianta in tempo reale.</p>
+            </div>
+          </div>
+          
+          <div class="step animate-fade delay-5">
+            <div class="step-header">
+              <div class="si">02</div>
+              <div class="step-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+              </div>
+            </div>
+            <div class="step-copy">
+              <h3>IA che ottimizza</h3>
+              <p>Algoritmi predittivi indicano quando irrigare, quando raccogliere e dove prevenire le anomalie, riducendo lo spreco e stabilizzando la qualità.</p>
+            </div>
+          </div>
+          
+          <div class="step animate-fade delay-6">
+            <div class="step-header">
+              <div class="si">03</div>
+              <div class="step-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><rect x="7" y="7" width="3" height="3"/><rect x="14" y="7" width="3" height="3"/><rect x="7" y="14" width="3" height="3"/><rect x="14" y="14" width="3" height="3"/></svg>
+              </div>
+            </div>
+            <div class="step-copy">
+              <h3>Filiera trasparente</h3>
+              <p>Ogni dato confluisce in un registro immutabile e pubblico. I buyer monitorano i lotti;<br>i consumatori scansionano il QR-code sullo scaffale.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4 — VALORE GDO E TELEMETRIA -->
+    <section class="slide" id="s4">
+      <svg class="map" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1280" height="720" fill="var(--green-light)"/>
+        <!-- Topographic Contour Lines -->
+        <g fill="none" stroke="rgba(45, 92, 62, 0.06)" stroke-width="1.2">
+          <!-- Top Right Contour System -->
+          <path d="M 1050,-100 C 1150,-60 1250,10 1280,120 C 1300,220 1200,280 1100,260 Z"/>
+          <path d="M 1060,-80 C 1140,-50 1220,10 1245,100 C 1260,180 1180,230 1100,215 Z"/>
+          
+          <!-- Bottom Left Contour System -->
+          <path d="M 100,580 C 180,605 220,680 200,760 C 180,840 80,855 0,790 C -80,725 -110,635 -90,555 Z"/>
+          <path d="M 80,600 C 140,620 170,670 160,730 C 150,790 70,800 10,750 C -50,700 -70,640 -60,580 Z"/>
+        </g>
+      </svg>
+
+      <div class="mini-float-icon" style="animation-delay:.1s;">
+        <svg width="44" height="44" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="72" height="72" rx="10" fill="var(--white)" stroke="var(--green-highlight)" stroke-width="1.5"/>
+          <path d="M18 18 L18 26 M18 18 L26 18" stroke="var(--green-highlight)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M62 18 L62 26 M62 18 L54 18" stroke="var(--green-highlight)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M18 62 L18 54 M18 62 L26 62" stroke="var(--green-highlight)" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M62 62 L62 54 M62 62 L54 62" stroke="var(--green-highlight)" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="pad">
+        <div class="id-row">
+          <div class="eyebrow">03 — Il valore per voi</div>
+          <div class="id-text">04 / 06</div>
+        </div>
+        <h2 class="animate-fade delay-1"><span class="pop-clay">Più valore</span><br>sullo scaffale.</h2>
+        
+        <div class="split">
+          <div class="left">
+            <p class="animate-fade delay-2">
+              Abbattiamo ogni asimmetria informativa. Conoscete l'esatta storia agraria di ogni lotto prima che arrivi nei vostri centri di distribuzione. Una certezza matematica che si traduce in fidelizzazione, scansionabile in tre secondi.
+            </p>
+            <div class="stat-row animate-fade delay-3">
+              <div class="stat">
+                <div class="v">100%</div>
+                <div class="l">LOTTI MONITORATI<br>DAL SEME A VOI</div>
+              </div>
+              <div class="stat">
+                <div class="v">−18%</div>
+                <div class="l">IMPATTO IDRICO<br>NEI CAMPI CON IA</div>
+              </div>
+              <div class="stat">
+                <div class="v">↑QR</div>
+                <div class="l">ENGAGEMENT SULLO<br>SCAFFALE GDO</div>
+              </div>
+            </div>
+            <!-- ESG CALCULATOR WIDGET -->
+            <div class="esg-calculator animate-fade delay-4">
+              <div class="calc-title">Simula la fornitura per stimare l'impatto ESG:</div>
+              <div class="calc-inputs">
+                <input type="number" id="calcTons" value="100" min="1" max="10000" placeholder="Ton.">
+                <span class="calc-unit">Tonnellate di prodotto</span>
+              </div>
+              <div class="calc-results">
+                <div class="calc-metric">
+                  <span class="m-val" id="valWater">1.250.000</span>
+                  <span class="m-lbl">Litri d'acqua risparmiati</span>
+                </div>
+                <div class="calc-metric">
+                  <span class="m-val" id="valCo2">8.500</span>
+                  <span class="m-lbl">kg CO₂ ridotta</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="right animate-fade delay-3">
+            <div class="eyebrow">
+              <span>TELEMETRIA LOTTO #842</span>
+              <span><span class="pulse-dot"></span>LIVE</span>
+            </div>
+            
+            <div class="telemetry-chart">
+              <svg viewBox="0 0 400 60" preserveAspectRatio="none">
+                <!-- Grid lines -->
+                <line x1="0" y1="15" x2="400" y2="15" stroke="rgba(250,250,247,0.06)" stroke-width="1"/>
+                <line x1="0" y1="30" x2="400" y2="30" stroke="rgba(250,250,247,0.06)" stroke-width="1"/>
+                <line x1="0" y1="45" x2="400" y2="45" stroke="rgba(250,250,247,0.06)" stroke-width="1"/>
+                <!-- Path -->
+                <path class="sparkline" d="M 0 35 Q 40 20, 80 40 T 160 15 T 240 45 T 320 25 T 400 30"/>
+              </svg>
+            </div>
+            
+            <div class="label-line">
+              <span>Origine del lotto</span>
+              <span>Agrigentino, Siracusa (SR)</span>
+            </div>
+            <div class="label-line">
+              <span>Umidità del suolo</span>
+              <span>24.8% (Target Ottimale)</span>
+            </div>
+            <div class="label-line">
+              <span>Trattamenti</span>
+              <span>Registro zero residui certificato</span>
+            </div>
+            <div class="label-line">
+              <span>Data Raccolto</span>
+              <span>Certificata in tempo reale</span>
+            </div>
+            <div class="label-line">
+              <span>Bilancio CO₂</span>
+              <span>Risparmio idrico certificato</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5 — VALORE COOPERATIVO (ETICA + TECNOLOGIA) -->
+    <section class="slide" id="s5">
+      <svg class="map" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1280" height="720" fill="var(--white)"/>
+        <!-- Topographic Contour Lines (Green) -->
+        <g fill="none" stroke="rgba(45, 92, 62, 0.08)" stroke-width="1.2">
+          <!-- Top Right Contour System -->
+          <path d="M 1050,-100 C 1150,-60 1250,10 1280,120 C 1300,220 1200,280 1100,260 Z"/>
+          <path d="M 1060,-80 C 1140,-50 1220,10 1245,100 C 1260,180 1180,230 1100,215 Z"/>
+          
+          <!-- Bottom Left Contour System -->
+          <path d="M 100,580 C 180,605 220,680 200,760 C 180,840 80,855 0,790 C -80,725 -110,635 -90,555 Z"/>
+          <path d="M 80,600 C 140,620 170,670 160,730 C 150,790 70,800 10,750 C -50,700 -70,640 -60,580 Z"/>
+        </g>
+      </svg>
+
+      <div class="mini-float-icon" style="animation-delay:.5s;">
+        <svg width="46" height="46" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M45 6 L78 25 L78 65 L45 84 L12 65 L12 25 Z" fill="var(--ink)"/>
+          <circle cx="45" cy="45" r="9" fill="var(--green-highlight)"/>
+          <circle cx="45" cy="45" r="16" stroke="var(--green-highlight)" stroke-width="1.5" stroke-opacity="0.55" fill="none"/>
+        </svg>
+      </div>
+
+      <div class="pad">
+        <div class="id-row">
+          <div class="eyebrow">04 — Perché con noi</div>
+          <div class="id-text">05 / 06</div>
+        </div>
+        <h2 class="animate-fade delay-1">Tecnologia cooperativa:<br>scalabile, <span class="pop">perché già condivisa</span>.</h2>
+        
+        <div class="pillars">
+          <div class="pillar animate-fade delay-2">
+            <div class="n">ETICA</div>
+            <h3>Valori misurabili</h3>
+            <p>Tracciamo il giusto compenso agricolo, l'equità e la sostenibilità sociale, trasformando l'etica cooperativa in certificati tangibili.</p>
+          </div>
+          <div class="pillar animate-fade delay-3">
+            <div class="n">QUALITÀ</div>
+            <h3>Standard stabili su scala</h3>
+            <p>Un protocollo tecnologico uniforme su tutti i soci della rete. La qualità che pianificate oggi è quella che riceverete in ogni stagione.</p>
+          </div>
+          <div class="pillar animate-fade delay-4">
+            <div class="n">TECNOLOGIA</div>
+            <h3>IA dal volto umano</h3>
+            <p>L'intelligenza artificiale supporta l'agricoltore. Salvaguardiamo il know-how tradizionale potenziandone l'efficienza.</p>
+          </div>
+        </div>
+        
+        <div class="quote animate-fade delay-5">
+          “La cooperativa è, per sua natura, l’architettura più avanzata per fare innovazione, perché mette in rete idee e persone, creando quelle comunità capaci di valorizzare le peculiarità di ognuno”.
+          <span>Donato Montibello, vicepresidente di Mediterranei</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6 — CONCLUSIONE / CTA -->
+    <section class="slide" id="s6">
+      <svg class="map" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1280" height="720" fill="var(--ink)"/>
+        <!-- Topographic Contour Lines -->
+        <g fill="none" stroke="rgba(143, 184, 138, 0.12)" stroke-width="1.2">
+          <!-- Top Right Contour System -->
+          <path d="M 750,-100 C 850,-60 950,10 980,120 C 1000,220 900,280 800,260 Z"/>
+          <path d="M 760,-80 C 840,-50 920,10 945,100 C 960,180 880,230 800,215 Z"/>
+          
+          <!-- Bottom Left Contour System -->
+          <path d="M 150,550 C 250,580 300,680 270,780 C 240,880 120,900 20,820 C -80,740 -120,620 -90,520 Z"/>
+          <path d="M 130,570 C 210,595 250,670 230,750 C 210,830 110,845 30,780 C -50,715 -80,625 -60,545 Z"/>
+        </g>
+        <!-- Dynamic tech grid markers -->
+        <g stroke="rgba(40,140,100,0.18)" stroke-width="1" fill="none">
+          <line x1="760" y1="80" x2="990" y2="180"/>
+          <line x1="990" y1="180" x2="1060" y2="340"/>
+        </g>
+        <circle cx="760" cy="80" r="3.5" fill="var(--green-highlight)" opacity="0.85"/>
+        <circle cx="990" cy="180" r="3.5" fill="var(--green-highlight)" opacity="0.85"/>
+        <circle cx="1060" cy="340" r="3.5" fill="var(--green-highlight)" opacity="0.85"/>
+      </svg>
+
+      <!-- FLOATING IMMERSIVE BG ELEMENTS (Slide 6 Dark Parallax) -->
+      <div class="floating-bg-scene" id="floatingSceneS6" style="position: absolute; right: 0; top: 0; width: 600px; height: 100%; pointer-events: none; z-index: 2; overflow: hidden;">
+        <!-- Livello 1: Forme organiche in trasparenza -->
+        <div class="float-layer" style="position: absolute; right: -80px; top: 12%; width: 560px; height: 560px;" data-depth="0.5">
+          <div class="float-tilt">
+            <svg viewBox="0 0 200 200" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M160,60 C190,100 180,150 140,175 C100,200 50,175 35,130 C20,85 45,45 85,30 Z" fill="var(--green-accent)" opacity="0.035"/>
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Livello 2: Curve topografiche stilizzate -->
+        <div class="float-layer" style="position: absolute; right: 60px; top: 22%; width: 440px; height: 440px;" data-depth="1.1">
+          <div class="float-tilt">
+            <svg viewBox="0 0 200 200" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10,80 C50,40 130,40 170,80" stroke="var(--green-highlight)" stroke-width="0.75" stroke-opacity="0.1" stroke-linecap="round"/>
+              <path d="M30,95 C65,60 115,60 150,95" stroke="var(--green-highlight)" stroke-width="0.75" stroke-opacity="0.07" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Livello 3: Nodi reticolari digitali -->
+        <div class="float-layer" style="position: absolute; right: 140px; top: 32%; width: 280px; height: 280px;" data-depth="1.7">
+          <div class="float-tilt">
+            <svg viewBox="0 0 100 100" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="20" y1="35" x2="50" y2="15" stroke="var(--green-highlight)" stroke-width="0.5" stroke-opacity="0.12" stroke-dasharray="2,2"/>
+              <line x1="50" y1="15" x2="80" y2="40" stroke="var(--green-highlight)" stroke-width="0.5" stroke-opacity="0.12" stroke-dasharray="2,2"/>
+              <line x1="20" y1="35" x2="60" y2="65" stroke="var(--green-highlight)" stroke-width="0.5" stroke-opacity="0.09" stroke-dasharray="2,2"/>
+              <line x1="60" y1="65" x2="80" y2="40" stroke="var(--green-highlight)" stroke-width="0.5" stroke-opacity="0.09" stroke-dasharray="2,2"/>
+              <circle cx="20" cy="35" r="2" fill="var(--green-highlight)" fill-opacity="0.2"/>
+              <circle cx="50" cy="15" r="2" fill="var(--green-highlight)" fill-opacity="0.2"/>
+              <circle cx="80" cy="40" r="2" fill="var(--green-highlight)" fill-opacity="0.2"/>
+              <circle cx="60" cy="65" r="2" fill="var(--green-highlight)" fill-opacity="0.2"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="mini-float-icon" style="animation-delay:.3s; opacity:0.22;">
+        <svg width="48" height="48" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M45 6 L78 25 L78 65 L45 84 L12 65 L12 25 Z" fill="var(--green-primary)"/>
+          <circle cx="45" cy="45" r="9" fill="var(--green-highlight)"/>
+          <circle cx="45" cy="45" r="16" stroke="var(--green-highlight)" stroke-width="1.5" stroke-opacity="0.6" fill="none"/>
+        </svg>
+      </div>
+
+      <div class="pad">
+        <div class="id-row">
+          <div class="id-text">MEDITERRANEI · Cooperativa Digitale</div>
+          <div class="id-text">06 / 06</div>
+        </div>
+        
+        <div class="animate-fade delay-1">
+          <h2>Scegliamo una filiera<br>che si può <span class="pop">leggere</span>.</h2>
+          <p class="lede">Calibrato sui vostri mercati, integrabile con i vostri sistemi<br>GDO fin dal primo lotto.</p>
+        </div>
+        
+        <div class="bottom-row animate-fade delay-2">
+          <div class="cta-wrapper">
+            <a href="https://www.mediterranei.coop/" target="_blank" class="cta">Iniziamo insieme →</a>
+            <!-- Interactive QR Code SVG representation -->
+            <!-- Minimal Professional QR Code link -->
+            <a href="passport.html" target="_blank" title="Apri il Passaporto Digitale del Prodotto" class="minimal-qr-link">
+              <div class="minimal-qr-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="2" y="2" width="6" height="6"/>
+                  <rect x="2" y="16" width="6" height="6"/>
+                  <rect x="16" y="2" width="6" height="6"/>
+                  <path d="M16 16h2v2h-2zM20 20h2v2h-2zM16 20h2v2h-2zM20 16h2v2h-2zM10 4h4M4 10h4M10 10h4M10 14h4M14 18h2M18 10h4M10 18v2"/>
+                </svg>
+              </div>
+              <span class="minimal-qr-text">[ apri il passaporto digitale ]</span>
+            </a>
+          </div>
+          
+          <div class="contacts">
+            <a href="https://www.mediterranei.coop/" target="_blank" style="color:inherit; text-decoration:none; border-bottom:1px solid transparent; transition:border-bottom 0.25s;" onmouseover="this.style.borderBottom='1px solid var(--green-highlight)'" onmouseout="this.style.borderBottom='1px solid transparent'">Mediterranei · Cooperativa Digitale</a><br>
+            agroalimentare@mediterranei.coop<br>
+            mediterranei.coop
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- HUD Control Panel -->
+  <div class="hud-controls" id="hudControls">
+    <button class="hud-btn" id="btnPrev" title="Precedente (⬅ / Backspace)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    </button>
+    <div class="hud-progress" id="hudProgress">01 / 06</div>
+    <button class="hud-btn" id="btnNext" title="Successiva (➔ / Spazio)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </button>
+    <button class="hud-btn" id="btnAutoplay" title="Avvio Autoplay">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    </button>
+    <button class="hud-btn" id="btnAudio" title="Attiva Audio (Mute)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="iconAudio"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6m0-6l6 6"/></svg>
+    </button>
+    <button class="hud-btn" id="btnFullscreen" title="Schermo Intero (F)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+    </button>
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.querySelectorAll('.slide');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const btnAutoplay = document.getElementById('btnAutoplay');
+    const btnAudio = document.getElementById('btnAudio');
+    const iconAudio = document.getElementById('iconAudio');
+    const btnFullscreen = document.getElementById('btnFullscreen');
+    const hudProgress = document.getElementById('hudProgress');
+    const progressBar = document.getElementById('progressBar');
+    const shortcutTip = document.getElementById('shortcutTip');
+    const hudControls = document.getElementById('hudControls');
+    const container = document.querySelector('.deck-container');
+
+    let currentIndex = 0;
+    let autoplayInterval = null;
+    let isMuted = true; // Default to muted to respect browser autoplay policies
+    const autoplayDuration = 8000; // 8 seconds per slide in autoplay
+
+    // Play synthesized warm switch click/thud sound
+    function playTransitionSound() {
+      if (isMuted) return;
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioContext();
+        
+        const osc = ctx.createOscillator();
+        const gainNode = ctx.createGain();
+        const filter = ctx.createBiquadFilter();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(130, ctx.currentTime); // warm low thud
+        osc.frequency.exponentialRampToValueAtTime(45, ctx.currentTime + 0.14); // frequency sweep down
+        
+        filter.type = 'lowpass';
+        filter.Q.value = 1;
+        filter.frequency.setValueAtTime(250, ctx.currentTime);
+        filter.frequency.exponentialRampToValueAtTime(70, ctx.currentTime + 0.14);
+        
+        gainNode.gain.setValueAtTime(0.08, ctx.currentTime); // quiet
+        gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.14);
+        
+        osc.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        
+        osc.start();
+        osc.stop(ctx.currentTime + 0.15);
+      } catch (e) {
+        console.warn("Audio Context blocked or not supported", e);
+      }
+    }
+
+    // 1. Navigation Logic
+    function showSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      
+      slides[currentIndex].classList.remove('active');
+      currentIndex = index;
+      slides[currentIndex].classList.add('active');
+      
+      playTransitionSound();
+      
+      // Update HUD
+      const slideNum = String(currentIndex + 1).padStart(2, '0');
+      const totalNum = String(slides.length).padStart(2, '0');
+      hudProgress.textContent = `${slideNum} / ${totalNum}`;
+      
+      // Update progress bar
+      const progressPercent = ((currentIndex + 1) / slides.length) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+
+      // Trigger telemetry redraw if on slide 4
+      if (currentIndex === 3) {
+        const sparkline = document.querySelector('.sparkline');
+        if (sparkline) {
+          sparkline.style.animation = 'none';
+          setTimeout(() => {
+            sparkline.style.animation = '';
+          }, 50);
+        }
+      }
+    }
+
+    function nextSlide() {
+      if (currentIndex < slides.length - 1) {
+        showSlide(currentIndex + 1);
+      } else {
+        // Loop back to first slide or stop autoplay
+        if (autoplayInterval) {
+          showSlide(0);
+        }
+      }
+    }
+
+    function prevSlide() {
+      if (currentIndex > 0) {
+        showSlide(currentIndex - 1);
+      }
+    }
+
+    // 2. Autoplay Handler
+    function toggleAutoplay() {
+      if (autoplayInterval) {
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+        btnAutoplay.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+        btnAutoplay.setAttribute('title', 'Avvio Autoplay');
+      } else {
+        autoplayInterval = setInterval(nextSlide, autoplayDuration);
+        btnAutoplay.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`;
+        btnAutoplay.setAttribute('title', 'Pausa Autoplay');
+      }
+    }
+
+    // 3. Fullscreen Handler
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.error(`Error attempting to enable full-screen mode: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Update Fullscreen button icon based on status
+    document.addEventListener('fullscreenchange', () => {
+      if (document.fullscreenElement) {
+        btnFullscreen.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h6v6m10-6h-6v6M4 10h6V4m10 6h-6V4"/></svg>`;
+      } else {
+        btnFullscreen.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>`;
+      }
+      resizePresentation();
+    });
+
+    // 4. Viewport scaling
+    function resizePresentation() {
+      const targetWidth = 1280;
+      const targetHeight = 720;
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      
+      const scaleX = windowWidth / targetWidth;
+      const scaleY = windowHeight / targetHeight;
+      
+      // Scale to fit screen conserving aspects
+      const scale = Math.min(scaleX, scaleY) * 0.96;
+      container.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    }
+
+    // 5. Setup Listeners
+    btnPrev.addEventListener('click', () => {
+      clearInterval(autoplayInterval);
+      autoplayInterval = null;
+      btnAutoplay.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+      prevSlide();
+    });
+
+    btnNext.addEventListener('click', () => {
+      clearInterval(autoplayInterval);
+      autoplayInterval = null;
+      btnAutoplay.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+      nextSlide();
+    });
+
+    btnAutoplay.addEventListener('click', toggleAutoplay);
+    btnFullscreen.addEventListener('click', toggleFullscreen);
+
+    btnAudio.addEventListener('click', () => {
+      isMuted = !isMuted;
+      if (isMuted) {
+        iconAudio.innerHTML = `<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6m0-6l6 6"/>`;
+        btnAudio.setAttribute('title', 'Attiva Audio');
+      } else {
+        iconAudio.innerHTML = `<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>`;
+        btnAudio.setAttribute('title', 'Disattiva Audio');
+        playTransitionSound();
+      }
+    });
+
+    // Keyboard bindings
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+        btnAutoplay.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+        e.preventDefault();
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+        btnAutoplay.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+        prevSlide();
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullscreen();
+      } else if (e.key === 'Escape' && document.fullscreenElement) {
+        document.exitFullscreen();
+      }
+    });
+
+    // Touch Swipe Navigation for touch displays
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+      const threshold = 50;
+      if (touchEndX < touchStartX - threshold) {
+        nextSlide(); // Swipe left
+      } else if (touchEndX > touchStartX + threshold) {
+        prevSlide(); // Swipe right
+      }
+    }
+
+    // Hide UI tip overlay after 4 seconds
+    setTimeout(() => {
+      shortcutTip.style.opacity = '0';
+      setTimeout(() => shortcutTip.remove(), 600);
+    }, 4500);
+
+    // ESG Calculator Logic
+    const calcTons = document.getElementById('calcTons');
+    const valWater = document.getElementById('valWater');
+    const valCo2 = document.getElementById('valCo2');
+
+    function updateESGMetrics() {
+      const tons = parseFloat(calcTons.value) || 0;
+      // Formula: 12500 Liters of water saved per ton, 85 kg CO2 saved per ton
+      const waterSaved = Math.round(tons * 12500);
+      const co2Saved = Math.round(tons * 85);
+      
+      valWater.textContent = waterSaved.toLocaleString('it-IT');
+      valCo2.textContent = co2Saved.toLocaleString('it-IT');
+    }
+
+    if (calcTons) {
+      calcTons.addEventListener('input', updateESGMetrics);
+      calcTons.addEventListener('change', updateESGMetrics);
+    }
+
+    // ----------------------------------------------------
+    // INTERACTIVE NETWORK BACKGROUND FOR COPERTINA (SLIDE 1)
+    // ----------------------------------------------------
+    const netCanvas = document.getElementById('networkCanvas');
+    if (netCanvas) {
+      const netCtx = netCanvas.getContext('2d');
+      let netWidth = netCanvas.width = 1280;
+      let netHeight = netCanvas.height = 720;
+      
+      const numPoints = 50;
+      const points = [];
+      const maxDist = 120;
+      
+      // Initialize points
+      for (let i = 0; i < numPoints; i++) {
+        points.push({
+          x: Math.random() * netWidth,
+          y: Math.random() * netHeight,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          r: Math.random() * 1.5 + 1
+        });
+      }
+      
+      let netMouse = { x: null, y: null };
+      const s1 = document.getElementById('s1');
+      
+      if (s1) {
+        s1.addEventListener('mousemove', (e) => {
+          const rect = s1.getBoundingClientRect();
+          const scaleX = rect.width / 1280;
+          const scaleY = rect.height / 720;
+          netMouse.x = (e.clientX - rect.left) / scaleX;
+          netMouse.y = (e.clientY - rect.top) / scaleY;
+        });
+        
+        s1.addEventListener('mouseleave', () => {
+          netMouse.x = null;
+          netMouse.y = null;
+        });
+      }
+
+      // GLOBAL 3D PARALLAX & REACTIVE TILT FOR ALL ACTIVE SLIDES
+      window.addEventListener('mousemove', (e) => {
+        const activeSlide = document.querySelector('.slide.active');
+        if (!activeSlide) return;
+        
+        const rect = activeSlide.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        const nx = x / (rect.width / 2);  // -1 .. 1
+        const ny = y / (rect.height / 2); // -1 .. 1
+        
+        // Slide 1 (Copertina)
+        if (activeSlide.id === 's1') {
+          const bgParallax = activeSlide.querySelector('.bg-parallax');
+          const floatLayers = activeSlide.querySelectorAll('.float-layer');
+          const moveX = nx * -15;
+          const moveY = ny * -15;
+          if (bgParallax) {
+            bgParallax.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px)) scale(1.05)`;
+          }
+          floatLayers.forEach(layer => {
+            const depth = parseFloat(layer.dataset.depth) || 1;
+            const tilt = layer.querySelector('.float-tilt');
+            if (tilt) {
+              const rotY = nx * 12 * depth;
+              const rotX = -ny * 12 * depth;
+              tilt.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+            }
+          });
+        }
+        
+        // Slide 6 (Conclusione)
+        if (activeSlide.id === 's6') {
+          const floatLayers = activeSlide.querySelectorAll('.float-layer');
+          floatLayers.forEach(layer => {
+            const depth = parseFloat(layer.dataset.depth) || 1;
+            const tilt = layer.querySelector('.float-tilt');
+            if (tilt) {
+              const rotY = nx * 12 * depth;
+              const rotX = -ny * 12 * depth;
+              tilt.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+            }
+          });
+        }
+      });
+      
+      function animateNetwork() {
+        if (s1.classList.contains('active')) {
+          netCtx.clearRect(0, 0, netWidth, netHeight);
+          
+          // Draw digital matrix grid
+          netCtx.strokeStyle = 'rgba(45, 92, 62, 0.05)';
+          netCtx.lineWidth = 0.5;
+          const gridSize = 40;
+          for (let x = 0; x < netWidth; x += gridSize) {
+            netCtx.beginPath();
+            netCtx.moveTo(x, 0);
+            netCtx.lineTo(x, netHeight);
+            netCtx.stroke();
+          }
+          for (let y = 0; y < netHeight; y += gridSize) {
+            netCtx.beginPath();
+            netCtx.moveTo(0, y);
+            netCtx.lineTo(netWidth, y);
+            netCtx.stroke();
+          }
+          
+          // Update and draw points
+          points.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            
+            if (p.x < 0 || p.x > netWidth) p.vx *= -1;
+            if (p.y < 0 || p.y > netHeight) p.vy *= -1;
+            
+            netCtx.beginPath();
+            netCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            netCtx.fillStyle = 'rgba(47, 168, 160, 0.45)';
+            netCtx.fill();
+          });
+          
+          // Draw connections
+          for (let i = 0; i < points.length; i++) {
+            for (let j = i + 1; j < points.length; j++) {
+              const p1 = points[i];
+              const p2 = points[j];
+              const dx = p1.x - p2.x;
+              const dy = p1.y - p2.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              
+              if (dist < maxDist) {
+                const alpha = (1 - dist / maxDist) * 0.12;
+                netCtx.strokeStyle = `rgba(45, 92, 62, ${alpha})`;
+                netCtx.lineWidth = 0.8;
+                netCtx.beginPath();
+                netCtx.moveTo(p1.x, p1.y);
+                netCtx.lineTo(p2.x, p2.y);
+                netCtx.stroke();
+              }
+            }
+          }
+          
+          // Connect to mouse
+          if (netMouse.x !== null && netMouse.y !== null) {
+            points.forEach(p => {
+              const dx = p.x - netMouse.x;
+              const dy = p.y - netMouse.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              
+              if (dist < 160) {
+                const alpha = (1 - dist / 160) * 0.25;
+                netCtx.strokeStyle = `rgba(47, 168, 160, ${alpha})`;
+                netCtx.lineWidth = 1.2;
+                netCtx.beginPath();
+                netCtx.moveTo(p.x, p.y);
+                netCtx.lineTo(netMouse.x, netMouse.y);
+                netCtx.stroke();
+              }
+            });
+          }
+        }
+        requestAnimationFrame(animateNetwork);
+      }
+      
+      animateNetwork();
+    }
+
+    // Initial setup
+    window.addEventListener('resize', resizePresentation);
+    resizePresentation();
+    showSlide(0);
+  });
+</script>
+</body>
+</html>
